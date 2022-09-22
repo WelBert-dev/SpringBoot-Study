@@ -1,6 +1,8 @@
 package academy.devdojo.springboot2.controller;
 
 import academy.devdojo.springboot2.domain.Anime;
+import academy.devdojo.springboot2.util.DateUtil;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -11,6 +13,10 @@ import java.util.List;
 @RestController
 @RequestMapping("anime")
 public class AnimeController {
+
+    @Autowired
+    private DateUtil dateUtil;
+
     // equivalente a: localhost:8080/anime/list
     // obs: sem a anotação a nivel de classe @RequestMapping() não iria conter um contexto então o resultado seria
         // localhos:8080/list

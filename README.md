@@ -8,19 +8,19 @@
 2. As Dependências do Maven ficam no diretorio home: ~/.m2
    1. tags parent e dependencies são as definicios dos modulos em pom.xml 
    2. Para vizualizar o pom final com todas as dependências:
-	1. Botão direito sobre o pom -> Maven -> Show Effective POM
+    1. Botão direito sobre o pom -> Maven -> Show Effective POM
 
 3. Após as configurações iniciais setadas em pom.xml, deve-se criar o 
    primeiro pacote em ./src/main/java/ <- "academy.devdojo.springboot2"
    1. Create the sub-directory "domain"
-	1. Create the Anime class in this 
+    1. Create the Anime class in this 
    2. Create the sub-directory "start"
-	1. Cria a classe "ApplicationStart" -> main
-		1. psvm -> ponto inicial de start
-			1. SpringApplication.run(ApplicationStart.class, args);
-	2. Ao executar ira ocorrer alguns problemas, pois é preciso setar algumas
+    1. Cria a classe "ApplicationStart" -> main
+        1. psvm -> ponto inicial de start
+            1. SpringApplication.run(ApplicationStart.class, args);
+    2. Ao executar ira ocorrer alguns problemas, pois é preciso setar algumas
            configurações
-		1. Primeira solução: utilizar a anotação @EnableAutoConfiguration
+        1. Primeira solução: utilizar a anotação @EnableAutoConfiguration
 
 4. Criando o primeiro EndPoint basico sem boas práticas: nova pasta em academy.devdojo.springboot2/controller
    1. Cria a classe "AnimeController" in this com a anotação @RestController
@@ -52,4 +52,32 @@
                   O Json, porém nós não implementamos, apenas implementamos o contrutor!
                   1. Solução: Gerar os Getter e Setter da classe de dominio "Anime" em "academy.devdojo.springboot2.domain.Anime"
                      1. Pronto! agora não ira dar mais erros!
-         2. No proximos passos iremos Utilizar a maneira CORRETA! 
+         2. No proximos passos iremos Utilizar a maneira CORRETA! -> Step 6
+
+5. @Autowired e @Component -> Video 04 DevDojo
+   1. Cria o pacote "util" na raiz "academy.devdojo.springboot2" <- aqui
+      1. Cria a classe "DateUtil" in this
+         1. Cria método que retorna a data formatada no padrão db in this
+   2. Cria a propriedade "dateUtil" em "academy.devdojo.springboot2.controller.AnimeController.java"
+      1. E faz a injeção de dependência utilizando:
+         1. @Autowired -> Não recomendado popis dificulta cenários de teste:
+            1. De primeira ocorrerá um erro pois não utilizamos nenhuma anotação para torna-lo um bean!
+               1. Para isto iremos editar a classe "dateUtil" criada anteriormente em "...springboot2.util.DateUtil.java"
+                  1. Utilizando a anotação @Component na classe (Pois não é uma classe com especialidades tipo controller, service e etc...)
+                  2. Obs: Isto só é possível pois a classe "main" ApplicationStart contém a anotação @ComponentScan
+                     No qual esta realizando o mapeamento de todos pacotes em "academy.devdojo.springboot2"
+                     Porisso é possível utilizar as anotações e o spring encontra!
+               
+         2. Utilizando os atributos set da classe:
+         
+         3. Pelo construtor da classe -> Mais recomendado
+
+6. Corrigindo o arquivo "main" ApplicationStart em "academy.devdojo.springboot2.start.ApplicationStart.java"
+   Correção esta pois o "correto" é deixar este ponto de partida no root do pacote ou seja em "academy.devdojo.springboot2"
+   Estava funcionando pois "forçamos" utilizando a anotação @ComponentScan(basePackages = "academy.devdojo.springboot2")
+   Porém não é uma boa prática!
+   1. Inicialmente iremos mover a classe java para a raiz do pacote "academy.devdojo.springboot2" <- aqui
+   2. Remover o pacote "start" em "academy.devdojo.springboot2.start"
+   3. Remover o parametro da anotação anterior @ComponentScan -> assim ele scanneia por padrão a pasta corrente
+   4. Parei em 5:30
+      
