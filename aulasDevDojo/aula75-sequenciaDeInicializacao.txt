@@ -1,5 +1,7 @@
+-- Data 07/11/2022
+-- link: https://www.youtube.com/watch?v=raAHfRdld0Y&list=PL62G310vn6nFIsOCC0H-C2infYgwm8SWW&index=76
 
--- obs: Ordem de precedência de execução quando utilizado Herança, e utilizando blocos de inicialização comum "{}" e estático "static {}":
+-----> Ordem de precedência de execução quando utilizado Herança, e utilizando blocos de inicialização comum "{}" e estático "static {}":
 
 1o - Sempre a classe mais abstrata (ou seja a classe mais "velha" da arvore, que deu origem a outras). 
    - Dessa classe mais abstrata sera executado primeiro o bloco de inicialização estático.
@@ -17,7 +19,7 @@
 6o - Por fim é excutado o construtor da classe mais especializada, que foi invocada em sí.
 
 
---- Mesma obs citada no vídeo:
+--- Mesma ordem descrita no vídeo:
 
 1o - Bloco de inicialização estático da superClasse é executado quando a JVM carregar a classe pai (Classe mais abstrata).
 2o - Bloco de inicialização estático da subClasse é executado quando a JVM carregar a classe filho (Classe mais especializada).
