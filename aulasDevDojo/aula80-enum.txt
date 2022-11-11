@@ -1,0 +1,14 @@
+-- Data 10/11/2022
+-- link: https://www.youtube.com/watch?v=3xzrprPwS2Q&list=PL62G310vn6nFIsOCC0H-C2infYgwm8SWW&index=81
+
+----------> 80 - Enumerações 
+
+-----> Enumerações também possuem construtores.
+-----> Podemos definir atributos á elas tambem, porém as mesmas devem vir após a lista de enumeradores.
+
+O construtor geralmente é utilizado para alimentar essa variavel definida, 
+e assim poder fazer um get e saber qual é o enumerador selecionado.
+esse é o uso comum, podendo assim realizar lógicas e guardar no banco esse número identificador unico do enumerador selecionado.
+
+isso serve para abstrair e facilitar na programação, pois no código utilizamos "tipoCliente.PESSOA_JURIDICA" e no banco guardamos "tipoCliente.getValor()"
+ou "tipoCliente.VALOR" se a mesma for public, assim o código fica entendíve, e no banco fica utimizado.
