@@ -42,6 +42,25 @@ public enum TipoCliente {
 - exemplo de como chamar esse enum: 
 TipoCliente.PESSOA_FISICA;
 
+-- Método pronto para percorrer a lista de enumeradores de um enum e pegar ele:
+
+// TipoCliente tipoCliente = TipoCliente.valuesOf("Pessoa Física"); <-- assim VAI DAR ERRO pois ele pega pelo nome do enumerador em sí, n pelo valor passado como parametro.
+TipoCliente tipoCliente = TipoCliente.valuesOf("PESSOA_FISICA"); <-- assim daria, porém e se quisermos pegar pelo valor dos atributos em sí
+para isto será necessário criar um método estático neste enum, para assim ocupar menos espaço e todos objetos compartilhar deste metodo.
+
+public static TipoCliente tipoClientePorNomeRelatorio(String nomeRelatorio){
+  for (TipoCliente tipoCliente : values()) {
+    if (tipoCliente.getNomeRelatorio().equals(nomeRelatorio)) {
+      return tipoCliente;
+    }
+  }
+  
+  return null;
+}
+
+TipoCliente tipoCliente = TipoCliente.tipoClientePorNomeRelatorio("Pessoa Física"); <-- assim NÂO da ERRO
+
+
 ----> Sobrescrita de métodos em enum's: (Assim não é necessário uso de IF's)
 
 public enum TipoPagamento {
@@ -61,9 +80,8 @@ public enum TipoPagamento {
     return 0;
   }
   
-  // abstract double calcularDesconto(double valor); <-- ou assim
+  // abstract double calcularDesconto(double valor); <-- ou assim, lembrando que se utilzar assim, deve-se implementar com Override
 }
 
 - exemplo de como chamar esse método do enum:
-TipoPagamento.DEBITO.calcularDesconto(10);
-
+TipoPagamento.DEBITO.calcularDesconto(100);
