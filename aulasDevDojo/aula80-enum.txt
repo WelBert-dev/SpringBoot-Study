@@ -3,7 +3,7 @@
 
 ----------> 80 - Enumerações 
 
------> Enumerações também possuem construtores.
+-----> Enumerações também possuem construtores, métodos e atributos.
 -----> Podemos definir atributos á elas tambem, porém as mesmas devem vir após a lista de enumeradores.
 
 O construtor geralmente é utilizado para alimentar essa variavel definida, 
@@ -11,4 +11,59 @@ e assim poder fazer um get e saber qual é o enumerador selecionado.
 esse é o uso comum, podendo assim realizar lógicas e guardar no banco esse número identificador unico do enumerador selecionado.
 
 isso serve para abstrair e facilitar na programação, pois no código utilizamos "tipoCliente.PESSOA_JURIDICA" e no banco guardamos "tipoCliente.getValor()"
-ou "tipoCliente.VALOR" se a mesma for public, assim o código fica entendíve, e no banco fica utimizado.
+ou "tipoCliente.VALOR" se a mesma for public, assim o código fica entendível, e no banco fica otimizado.
+
+o construtor é chamado toda vez que criado um enumerador (Aqueles definidos logo nas primeiras linhas desse enum), 
+e assim podemos passar valores a eles, e assim que criado esses parametros seram passados ao construtor 
+exemplo:
+
+public enum TipoCliente {
+  PESSOA_FISICA(1, "Pessoa Física"),
+  PESSOA_JURIDICA(2, "Pessoa Jurídica");
+  
+  private int _valor; 
+  // ou public final int VALOR (e assim basta utilizar obj.VALOR para pegar qual é o enumerador selecionado da lista)
+  private String _nomeRelatorio;
+  
+  private tipoCliente(int valor, String nomeRelatorio){
+    this._valor = valor;
+    this._nomeRelatorio = nomeRelatorio;
+  }
+  
+  public getValor(){
+    return this._valor;
+  }
+  
+  public getNomeRelatorio(){
+    return this._nomeRelatorio;
+  }
+}
+
+- exemplo de como chamar esse enum: 
+TipoCliente.PESSOA_FISICA;
+
+----> Sobrescrita de métodos em enum's: (Assim não é necessário uso de IF's)
+
+public enum TipoPagamento {
+  DEBITO {
+    @Override
+    public double calcularDesconto(double valor){
+      return valor * 0.1;
+    }
+  }, CREDITO {
+    @Override
+    public double calcularDesconto(double valor){
+      return valor * 0.05;
+    }
+  };
+  
+  public double calcularDesconto(double valor){
+    return 0;
+  }
+  
+  // abstract double calcularDesconto(double valor); <-- ou assim
+}
+
+- exemplo de como chamar esse método do enum:
+TipoPagamento.DEBITO.calcularDesconto(10);
+
