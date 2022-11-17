@@ -44,4 +44,10 @@ pois assim iremos evitar o principio da imutabilidade com Overrides.
  }
  
  
+ ------> subclasses abstratas extendendo de classes abstratas:
+ - Em casos aonde temos métodos definidos como abstratos em superclasses avos e etc (nivel 3 a + de herança), 
+ a implementação deste método tem que ser realizada em alguma dessas subclasses, até no máximo a ultima classe (concreta) que extender, porém apenas uma implementação já é o suficiente.
+ 
+ 
+ 
  
