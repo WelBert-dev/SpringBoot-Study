@@ -1,0 +1,70 @@
+-- Data 17/11/2022 Parei na aula 88.
+-- link: 
+https://www.youtube.com/watch?v=AhVd_DzV3DU&list=PL62G310vn6nFIsOCC0H-C2infYgwm8SWW&index=88
+https://www.youtube.com/watch?v=QKjFkaagGdk&list=PL62G310vn6nFIsOCC0H-C2infYgwm8SWW&index=89
+
+Revisando POO
+Relembrando UML: Linhas cheias representam extends e as linhas pontilhadas representam implements.
+Fonte adicional: https://www.devmedia.com.br/java-collections-como-utilizar-collections/18450
+https://www.youtube.com/watch?v=zJml-dDGLsI <-- Diferenças entre extends e implements.
+
+-------> Interfaces: Definem assinaturas e devem ser implementadas por classes concretas, 
+bastante utilizando em conjunto de injeção de dependências (inversão de controle).
+não só isso, mas também é possível adicionar métodos com corpo implementado, utilizando
+default e assim esses métodos/comportamentos iram ser "herdados" para as classes que realizarem a implementação,
+podendo assim utilizar esse funcionalidade herdada ou sobrescreve-la com Override.
+Ou seja define uma abstração estilo abstract e assim esconde a complexidade por trás dela, 
+bastando conhecer essas assinaturas, deixando o código mais inteligente e facilitando na manutenção.
+
+
+  - Exemplo de interface famosa no Java aonde foi adicionado esses métodos default: ICollection.find
+
+- É Possível implementar multiplas interfaces de uma só vez, em uma única classe concreta, basta utilizar virgula após o implements.
+- Em Interfaces tudo é público ou estático.
+
+
+Exemplos:
+
+public interface IDataLoader {
+  public void loader();
+}
+
+public interface IDataRemover {
+  public void remove();
+}
+
+---------------------- // Utilizando banco de dados para a leitura:
+
+public class DataBaseLoader implements IDataLoader, IDataRemover {
+  @Override
+  public void loader(){
+    ...
+  }
+  
+  @Override
+  public void remove(){
+    ...
+  }
+}
+
+---------------------- // Utilizando um arquivo qualquer para leitura:
+
+public class FileLoader implements IDataLoader, IDataRemover {
+  @Override
+  public void loader(){
+    ...
+  }
+  
+  @Override
+  public void remove(){
+    ...
+  }
+}
+
+- Observe que foi utilizado a mesma interface como base para implementação, 
+assim em caso de alterações na leitura dos dados não é necessário alterar métodos e etc ao longo do código, 
+basta mudar a instância na chamada principal do app, pois os métodos possuem sua chamada/assinatura genérica.
+assim com a injeção de dependências, deixamos essa responsabilidade de instânciação ao framework utilizado no desenvolvimento.
+
+-------------------- //
+
