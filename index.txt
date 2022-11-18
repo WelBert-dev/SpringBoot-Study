@@ -1,0 +1,7 @@
+Data: 17/11/2022 
+Objetivo: Anotações gerais sobre o aprendizado, e até o final de 2023 conseguir a "Oracle Certification" do Java!!!!
+
+- Estudar mais sobre as regras dos modificadores de acesso. <-- algumas regras especificas caem na Oracle Certification.
+(quando utilizando herança, essa sub classe não pode utilizar modificadores mais restritivos doque os que estão na super classe)
+Ou seja, se na superclasse definirmos um método a "nível de pacote" aonde não informamos o modificador, 
+e na subclasse sobrescrevermos esse método como "public" vai ocorrer erros por cause desta regra.
