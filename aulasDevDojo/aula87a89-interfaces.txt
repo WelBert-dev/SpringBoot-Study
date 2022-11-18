@@ -104,3 +104,10 @@ public interface IDataLoader {
     ...
   }
 }
+
+------------------- // Comportamentos "Padrões" em uma interface (definições de atributos e etc):
+- Todo atributo definido em uma interface caso não alterado o padrãoé: public static final
+- Todo método definido em uma interface caso não alterado o padrão: public abstract <- isso quando o mesmo não é default
+
+Parei em: https://www.youtube.com/watch?v=SYyEyR78dSQ&list=PL62G310vn6nFIsOCC0H-C2infYgwm8SWW&index=90 03:40
+
