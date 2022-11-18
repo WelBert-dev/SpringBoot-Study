@@ -1,0 +1,80 @@
+-- Data 18/11/2022
+-- link: 
+
+https://www.youtube.com/watch?v=UmReA29kOVw&list=PL62G310vn6nFIsOCC0H-C2infYgwm8SWW&index=91 <-- Parei em 07:00
+
+Relembrando POO
+
+- Obs: polimorfismo é um dos assuntos mais importantes quando se tratado de POO.
+- Assuntos interessantes: Polimorfismo Dinâmico e Estático. (https://groups.google.com/g/ccppbrasil/c/-0mFIVUnhs8)
+
+-------> POLIMORFISMO Capacidade de se adaptar a mudanças ao longo da implementação, com uso de sobrescritas alterando o comportamento,
+fazendo com que as classes que herdarem uma superClasse fiquem especializadas para o contexto delas.
+
+- Existem N formas de utilizar desse ṕrincipio, com os mecanismos da linguagem.. aqui utilizamos Herança em conjunto de Interfaces.
+
+- Vantagens: Utilizar boas práticas de programação POO, definindo classes mais abstratas como "abstract" e colocando nelas
+comportamentos "comuns" ou "genéricos" para subClasses que iram fazer essa herança, evitando assim "Ctrl C + Ctrl V" e 
+deixando o código mais elegante.
+  - PORÉM se atentar, e verificar se nessa classe abstrata possui realmente COMPORTAMENTOS COMUNS entre as subclasses que iram herda-la!!
+  - Para assim evitar sobrescritas descontroladas ao longo do programa.
+
+- Desvantagens: Acoplamento e dificuldade de re-uso.
+  - A melhor forma de resolver um problema é quebrando-o em problemas menores independentes.
+  - É neste ponto que a herança atrapalha, pois o problema se torna dependente de toda a cadeia de classes, da base para as derivadas.
+
+
+---------------------- // Demonstração de POLIMORFISMO utilizando abstrações e interfaces.
+
+// Define o contrato sobre o calculo do imposto para os prudutos concretos ou seja "Computador" ou "Tomate", como é comum entre ambos,
+// iremos passar a implementação para a classe abstrata "Produto" assim quem herdar dele é o responsável por concretizar o contrato.
+
+public interface Taxavel { // as subclasses de "Produto" deveram implementar esse método, pois o imposto é indivídual para cada produto.
+  public abstract double calcularImposto(); 
+}
+
+
+// Define a superClasse "Pai" e implementa a interface, tornando assim o método dela obrigatório para as classes que herdarem,
+// concretizar o contrato.
+
+public abstract class Produto implements Taxavel { // não realizamos a sobrescrita aqui pois essa responsabilidade será da subClasse que herdar
+                                                   // Computador ou Tomate
+  protected String nome;
+  protected double Valor;
+  
+  public Producto (String nome, double valor){ // aqui obriga as subClasses a inicializarem nome e valor.
+    this.nome = nome;
+    this.valor = valor;
+  }
+}
+
+
+// Define as subClasses que finalizaram e concretizaram o contrato da interface implementada pela superClasse.
+
+public class Computador extends Produto {
+  public static final double IMPOSTO_POR_CENTO = 0.21;
+
+  public Computador(String nome, double valor){ // alimenta os atributos obrigatórios definidos na superClasse.
+    super(nome, valor);
+  }
+  
+  @Override 
+  public abstract double calcularImposto(){
+    ...
+    return this.valor * IMPOSTO_POR_CENTO;
+  } 
+}
+
+public class Tomate extends Produto {
+    public static final double IMPOSTO_POR_CENTO = 0.06;
+
+    public Tomate(String nome, double valor){ // alimenta os atributos obrigatórios definidos na superClasse.
+    super(nome, valor);
+  }
+  
+  @Override
+  public abstract double calcularImposto(){
+    ...
+    return this.valor * IMPOSTO_POR_CENTO;
+  } 
+}
