@@ -5,3 +5,11 @@ Objetivo: Anotações gerais sobre o aprendizado, e até o final de 2023 consegu
 (quando utilizando herança, essa sub classe não pode utilizar modificadores mais restritivos doque os que estão na super classe)
 Ou seja, se na superclasse definirmos um método a "nível de pacote" aonde não informamos o modificador, 
 e na subclasse sobrescrevermos esse método como "public" vai ocorrer erros por cause desta regra.
+
+- Ordem de precedência desses modificadores em relação a regra citada a cima:
+
+private -> default ou "modificador de acesso de pacote" quando não informado um -> protected -> public (mais liberal de todos).
+
+Resumo: Ou seja, ao definirmos um método na superClasse como "protected" e herdarmos essa classe,
+e nessa subClasse sobrescrevermos o método com algum módificador mais restritivo como "private", erros iram rolar, 
+apenas sendo possível sobrevever com modificadores mais liberais como "public" ou "protected" mesmo..
