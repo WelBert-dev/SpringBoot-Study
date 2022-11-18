@@ -1,6 +1,8 @@
 Data: 17/11/2022 
 Objetivo: Anotações gerais sobre o aprendizado, e até o final de 2023 conseguir a "Oracle Certification" do Java!!!!
 
+---------------------- // Modificadores de acesso mais a fundo (Regras e etc).
+
 - Estudar mais sobre as regras dos modificadores de acesso. <-- algumas regras especificas caem na Oracle Certification.
 (quando utilizando herança, essa sub classe não pode utilizar modificadores mais restritivos doque os que estão na super classe)
 Ou seja, se na superclasse definirmos um método a "nível de pacote" aonde não informamos o modificador, 
@@ -13,3 +15,7 @@ private -> default ou "modificador de acesso de pacote" quando não informado um
 Resumo: Ou seja, ao definirmos um método na superClasse como "protected" e herdarmos essa classe,
 e nessa subClasse sobrescrevermos o método com algum módificador mais restritivo como "private", erros iram rolar, 
 apenas sendo possível sobrevever com modificadores mais liberais como "public" ou "protected" mesmo..
+
+
+---------------------- // Polimorfismo Dinâmico e Estático. <--- Estudar mais 18/11/2022
+
