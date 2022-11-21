@@ -1,7 +1,7 @@
 -- Data 18/11/2022
 -- link: 
 
-https://www.youtube.com/watch?v=UmReA29kOVw&list=PL62G310vn6nFIsOCC0H-C2infYgwm8SWW&index=91 <-- Parei em 07:00
+https://www.youtube.com/watch?v=TZt_LYjKLiQ&list=PL62G310vn6nFIsOCC0H-C2infYgwm8SWW&index=92 <-- Parei em
 
 Relembrando POO
 
@@ -78,3 +78,17 @@ public class Tomate extends Produto {
     return this.valor * IMPOSTO_POR_CENTO;
   } 
 }
+
+
+---------------------- // Separando em camadas MVC (Particionando e separando as regras de negocio, da camada de apresentação e intermediador e banco)
+
+[Package Service]
+public class CalculadoraImposto {
+  public void CalculadoraImposto(Produto produto) {
+  
+  }
+}
+
+
+
+
