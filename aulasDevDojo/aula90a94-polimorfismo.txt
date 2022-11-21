@@ -82,12 +82,160 @@ public class Tomate extends Produto {
 
 ---------------------- // Separando em camadas MVC (Particionando e separando as regras de negocio, da camada de apresentação e intermediador e banco)
 
-[Package Service]
+---------------------- // Widening cast: Casting implicito, aonde passamos um valor menor para um maior (que compreende). e o java converte naturalmente
+---------------------- // Exemplo de Widening cast: Produto p1 = new Computador();
+ --------------------- // Exemplo 2 de Widening cast: Produto p2 = new Tomate(); 
+
+[Package Service]: Ficam as regras de negócio.
+
 public class CalculadoraImposto {
-  public void CalculadoraImposto(Produto produto) {
-  
+  public void CalcularImposto(Produto produto) { // aqui passamos as subClasses de Produto, se o método for acessar apenas os atributos genéricos
+                                                 // definidos na superClasse Produto. aumentando assim as possíbilidades de extensão
+                                                 // sem precisar ficar copiando e colando códigos, desde que utilizado apenas comportamentos genéricos
+                                                 // entre todos envolvidos. e garantir isso devido ao auto acoplamento entre as classes parentes.
+    double imposto = produto.calcularImposto();
+    
+    System.out.println("-------------------------------");
+    System.out.println("Produto: " + produto.getNome());
+    System.out.println("Valor: " + produto.getValor());
+    System.out.println("Imposto: " + imposto);
+    
   }
 }
+
+
+---> Obs: Mesmo exemplo de Widening cast porém entre tipos primitivos:
+    int myInt = 9;
+    double myDouble = myInt; // Automatic casting: int to double
+
+    System.out.println(myInt);      // Outputs 9
+    System.out.println(myDouble);   // Outputs 9.0
+
+---------------------- // 93 - Orientação Objetos - Polimorfismo pt 04 - Cast e instanceof
+
+---------------------- // Narrowing Casting: Conversão incompatível, ao contrário de widening cast (Casting Explicíto, devemos indicar ao Java)
+---------------------- // Exemplo de Narrowing Casting: Tomate tomate = produto; // ERROR
+---------------------- // Como garantir que o "produto" passado (superClasse) não é outra ramificação especializada tipo "Computador", ou "Laranja"?
+---------------------- // Solução: Tomate tomate = (Tomate) produto; // SUCCESS aqui estamos garantingo o casting.
+---------------------- // Risco: ClassCastException (Tentar converter um dos ramos de "Produto" especializado sem ser "Tomate".
+---------------------- // Solução 2: Verificar qual o tipo da instância e apartir dai fazer o casting da maneira correta.
+
+---------------------- // Narrowing Casting da maneira correta na prática:
+[Package Service]: Ficam as regras de negócio, intermediando o acesso ao repositório/banco (Repository).
+
+public class CalculadoraImposto {
+  public void CalcularImposto(Produto produto) { // aqui passamos as subClasses de Produto, se o método for acessar apenas os atributos genéricos
+                                                 // definidos na superClasse Produto. aumentando assim as possíbilidades de extensão
+                                                 // sem precisar ficar copiando e colando códigos, desde que utilizado apenas comportamentos genéricos
+                                                 // entre todos envolvidos. e garantir isso devido ao auto acoplamento entre as classes parentes.
+    
+    // Aqui continua genérico para todos ramos de "Produto".
+    
+    double imposto = produto.calcularImposto();
+    System.out.println("-------------------------------");
+    System.out.println("Produto: " + produto.getNome());
+    System.out.println("Valor: " + produto.getValor());
+    System.out.println("Imposto: " + imposto);
+   
+    // Aqui ramifica para poder acessar métodos especializados da subClasse passada no parâmetro.
+    
+    // Para subClasses do tipo especializado "Tomate".
+    
+    if (produto instanceof Tomate) { // Tomate possuí getDataValidade() diferente de "Computador".
+      Tomate tomate = (Tomate) produto; // faz a referência com uma variavel compatível e realiza casting de produto (Narrowing Casting)
+      
+      // Outra forma de fazer o casting economizando linha porém não tão legível:
+      
+      System.out.println("Data validade: " + ((Tomate) produto).getDataValidade());
+      
+      System.out.println("Data validade: " + tomate.getDataValidade());
+    }  
+  }
+}
+
+
+---------------------- // 94 - Orientação Objetos - Polimorfismo pt 05 - Programação orientada a interface
+Conceituando: facilita na programação e re-uso de códigos
+
+
+
+
+[Package Repository]: Ficam as lógicas de acesso ao banco, aqui utilizaremos interfaces com métodos genéricos salvar(), getById()... dentre outros métodos genéricos ao acesso.
+
+- Porque utilizar de interfaces para esses acessos? 
+  - Desacoplamento com a maneira como armazenamos os dados, pois podemos armazenar em arquivos, memória (RAM), banco de dados diversos...
+  - Então assinamos uma interface genérica com métodos que naturalmente seriam implementados, independentes das tecnologias de armazenamentos adotados.
+  - Deixando assim essa responssabilidade de firmar contrato para classes nesse contexto.
+
+
+[Package Repository]
+public interface IRepository {
+  public abstract void salvar();
+  ṕublic abstract void getById();
+}
+
+
+// Implementação utilizando banco de dados como armazenamento:
+
+[Package Repository]
+public class DataBaseRepository implements IRepository{
+  
+  @Override
+  public abstract void salvar(){
+    ...
+  }
+  
+  @Override
+  ṕublic abstract void getById(){
+    ...
+  }
+}
+
+
+// Implementação utilizando memória RAM como armazenamento:
+
+[Package Repository]
+public class InMemoryRepository implements IRepository{
+
+  @Override
+  public abstract void salvar(){
+    ...
+  }
+  
+  @Override
+  ṕublic abstract void getById(){
+    ...
+  }
+}
+
+
+// Implementação utilizando arquivo como armazenamento:
+
+[Package Repository]
+public class FileArchiveRepository implements IRepository{
+
+  @Override
+  public abstract void salvar(){
+    ...
+  }
+  
+  @Override
+  ṕublic abstract void getById(){
+    ...
+  }
+}
+
+---> Ou seja, independentemente da tecnologia de armazenamento, utilizamos métodos que são genéricos entre os mesmos, assim
+basta na chamada utilizar o método desejado, e as assinaturas são as mesmas, podendo assim realizar manutenções de maneira mais facil
+pois as chamadas é a mesma, apenas mudamos pequenos trechos do código.
+
+
+
+
+
+
+
+
 
 
 
