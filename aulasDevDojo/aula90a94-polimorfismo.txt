@@ -170,8 +170,8 @@ Conceituando: facilita na programação e re-uso de códigos
 
 [Package Repository]
 public interface IRepository {
-  public abstract void salvar();
-  ṕublic abstract void getById();
+  public abstract void save();
+  ṕublic abstract void getById(int id);
 }
 
 
@@ -181,12 +181,12 @@ public interface IRepository {
 public class DataBaseRepository implements IRepository{
   
   @Override
-  public abstract void salvar(){
+  public abstract void save(){
     ...
   }
   
   @Override
-  ṕublic abstract void getById(){
+  ṕublic abstract void getById(int id){
     ...
   }
 }
@@ -198,12 +198,12 @@ public class DataBaseRepository implements IRepository{
 public class InMemoryRepository implements IRepository{
 
   @Override
-  public abstract void salvar(){
+  public abstract void save(){
     ...
   }
   
   @Override
-  ṕublic abstract void getById(){
+  ṕublic abstract void getById(int id){
     ...
   }
 }
@@ -215,12 +215,12 @@ public class InMemoryRepository implements IRepository{
 public class FileArchiveRepository implements IRepository{
 
   @Override
-  public abstract void salvar(){
+  public abstract void save(){
     ...
   }
   
   @Override
-  ṕublic abstract void getById(){
+  ṕublic abstract void getById(int id){
     ...
   }
 }
@@ -228,6 +228,22 @@ public class FileArchiveRepository implements IRepository{
 ---> Ou seja, independentemente da tecnologia de armazenamento, utilizamos métodos que são genéricos entre os mesmos, assim
 basta na chamada utilizar o método desejado, e as assinaturas são as mesmas, podendo assim realizar manutenções de maneira mais facil
 pois as chamadas é a mesma, apenas mudamos pequenos trechos do código.
+
+---> Então na chamada criamos a variavel de referência como sendo o tipo mais genérico (neste contexto seria o Repository) 
+e ao precisar realizar trocas, basta apenas mudar o "new" para a classe especializada que implementa essa interface.
+sendo assim:
+
+Reposiroty repository = new DataBaseRepository();
+ou
+Reposiroty repository = new InMemoryRepository();
+ou 
+Reposiroty repository = new FileArchiveRepository();
+
+- E para todos serve a mesma chamada dos métodos genéricos, assim não é preciso mudar a implementação toda,
+bastando alterar o objeto referênciado no repository, pois todos as classes que implementou a interface possuí compatibilidade:
+
+reposiroty.save();
+repository.getById(id);
 
 
 
