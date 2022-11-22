@@ -1,0 +1,121 @@
+-- Data 18/11/2022
+-- link: 
+
+https://www.youtube.com/watch?v=30D9z8M3eCQ&list=PL62G310vn6nFIsOCC0H-C2infYgwm8SWW&index=96 
+https://www.youtube.com/watch?v=S7gLPZO0Jug&list=PL62G310vn6nFIsOCC0H-C2infYgwm8SWW&index=97
+https://www.youtube.com/watch?v=iNlGgh0s_F8&list=PL62G310vn6nFIsOCC0H-C2infYgwm8SWW&index=98 
+https://www.youtube.com/watch?v=M7CU5TOOmTc&list=PL62G310vn6nFIsOCC0H-C2infYgwm8SWW&index=99 <-- 
+
+Relembrando POO
+
+- Obs: 
+
+-------> Existem errors e execptions que são possíveis serem tratadas e estão em nosso controle porém existem também exceptions que não estão.
+-------> Neste módulo iremos aprender a como trata-las pois o java oferece bastante recursos para tal.
+-------> Todos os erros são ramos da mesma superClasse.
+-------> PORÉM nem todo erro é uma exceção, ambos são coisas diferentes porém todos são subClasses de Throw!
+
+---------------------- // 95 - Exceções pt 01 - Errors. (Básico, ja sabia e.e sem muitas anotações) 
+https://www.youtube.com/watch?v=30D9z8M3eCQ&list=PL62G310vn6nFIsOCC0H-C2infYgwm8SWW&index=96 
+
+-----> StackOverflowError: Quando extoura a pilha (Memória), recursividade sem controle pode causar essa exception.
+
+---------------------- // 96 - Exceções pt 02 - RuntimeException (Aqui são tratadas e é explicado os tipos checked e unchecked)
+https://www.youtube.com/watch?v=S7gLPZO0Jug&list=PL62G310vn6nFIsOCC0H-C2infYgwm8SWW&index=97
+
+---------------------- // Exceptions filhas diretas de Runtime são do tipo Unchecked e não necessita de pré-tratamentos em relação a compilação do código.           
+
+---> Hierarquia básica de uma Exception (Da mais genérica para a mais especializada) Throwable é a mais genérica:
+
+                           <Checked>(NÂO compila)     <Unchecked> (Compila)
+[Error] -> [Throwable] <- [Exception] <-------------- [RuntimeException]
+                              /\                            /\
+                               |                             |
+                         [IOException]              [NullPointerException]
+                         [SQLException]             [NumberFormatException]
+                         [MalformadURLexception]    [ClassCastException]
+                                                    [IndexOutOfBoundsException]
+                                                  
+                                                  
+---------------------- // Exception dos tipos Checked(Obrigatório o tratamento, pois o código nem compila) e Unchecked(Não obrigatório):
+
+---> Checked: São filhas diretas da classe Exception, ou seja se lançada sem tratamento nem da pra compilar o código (Acontece em tempo de compilação).
+Exemplos: IOException, SQLException, MalformadURLException.
+Checked pois ja são "Conhecidas" antes mesmo do código compilar, com essa inteligência do Java.
+
+---> Unchecked: Filhas de RuntimeException ou subClasses da mesma (Abaixo deste ramo na árvore)
+Exemplos: NullPointerException, NumberFormatException, ClassCastException, IndexOutOfBoundsException.
+Unchecked pois são desconhecidas ainda, e só seram "descobertas" ou lançadas em tempo de execução (Porisso herdam de Runtime).
+
+---------------------- // RuntimeException: Na maior parte das vezes em que é lançada sem ser implementação criada por você, 
+---------------------- // Lançadas pelo Java de algum lugar, Essa culpa esta no desenvolvedor, que não fez tratamentos correto.
+---------------------- // Também é possível criar subClasses herdando de RuntimeException, assim podemos nós criar nossos tratamento personalizados.
+
+
+---------------------- // 97 - Exceções pt 03 - Exception. (Aqui trata-se das subClasses diretas de Exception, ou seja dos tipo Checked).
+https://www.youtube.com/watch?v=iNlGgh0s_F8&list=PL62G310vn6nFIsOCC0H-C2infYgwm8SWW&index=98
+
+---------------------- // Exceptions do tipo Checked pois já são pré-conhecidas pelo Java e ele consegue detectar antes mesmo de compilar o código.
+---------------------- // Porisso temos a OBRIGAÇÃO de tratar esse tipo de Exception.
+---------------------- // Exemplos básicos: IOException, SQLException, MalformadURLexception, dentre outros..
+
+---------------------- // IOException (Exemplo do vídeo sobre Exceptions filhas diretas de Exception, elas necessitam de tratamentos OBRIGATÒRIAMENTE. (Checked).
+---------------------- // Como demonstrativo iremos manipular arquivos simples no Java.
+
+
+public static void createNewFile() {
+  File file = new File("arquivo\\teste.txt"); // O Java identifica os arquivos apartir da raiz do projeto. a barra serve para escapar a outra. 
+  
+  // ERROR file.createNewFile(); // método pronto do java.io <-- Aqui se não lançado um throw IO o Java NÂO vai deixar compilar! 
+                        // Temos duas opções para lançar esse throw, ou com try catch ou na assinatura do método.
+                        // Com try catch o java ainda vai tentar rodar e ai lançar a Exeption.
+                        
+  try { // TRATANDO ELE  // Ou seja, só iremos utilizar em try{}catch(Exceptions){} em subClasses de Runtime, ou na prórpria Exception mais genérica.
+                         // Sempre deixar essa Exception mais genérica no final da sobrecarga dos catchs, para ir "filtrando" das mais especilizadas
+                         // Até o ultimo caso que ai o problema é mais genérico, então finalmente cai nesse bloco
+                         // pois se definir no primeiro catch como a mais genérica SEMPRE vai cair ali, devido a compatibilidade de herança 
+                         // pois todos os ramos subClasses de Exception se enquadram nesse tipo, assim não conseguimos realizar o tratamento dessas 
+                         // subClasses mais especificas por utilizar uma abordagem ruim nesse tratamento.
+                         // Assim deixando na sobrecarga das mais especificas para as mais genéricas conseguimos realizar um melhor tratamento.
+                         
+  
+    boolean isCreated = file.createNewFile();
+    
+  } catch (IOException ex) { // Obs interessante que podemos analisar essa hierarquia e entender melhor sobre subClasses de Runtime (Unchecked)
+                             // e subClasses de Exception (Mais genérica podendo ser tanto Runtime (Unchecked) como outras especializadas Checked)
+                             // se passado no catch uma exception do tipo mais especializado herdeiros de Exception, porém sem ser subtipos de Runtime
+                             // Iremos analizar um erro de compilação, pois essas são do tipo checked e ja são "conhecidas" pelo Java,
+                             // Assim, se tentarmos executar nesse catch passando IOException e não passar nada no try, vai dar ERROR,
+                             // diferentemente quando se passado nesse catch uma Exception (Pois esta é genérica, e pode ser uma Runtime)
+                             // Então o Java não vai alertar erros e vamos poder compilar o código.
+    ...
+    ex.printStackTrace(); // <-- Boa prática para rastrear a origin da Exception.
+  }
+}
+
+
+---------------------- // 98 - Exceções pt 04 - Lançando exceção unchecked. ()
+https://www.youtube.com/watch?v=M7CU5TOOmTc&list=PL62G310vn6nFIsOCC0H-C2infYgwm8SWW&index=99
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                                  
+       
+
+
+
