@@ -4,7 +4,7 @@
 https://www.youtube.com/watch?v=30D9z8M3eCQ&list=PL62G310vn6nFIsOCC0H-C2infYgwm8SWW&index=96 
 https://www.youtube.com/watch?v=S7gLPZO0Jug&list=PL62G310vn6nFIsOCC0H-C2infYgwm8SWW&index=97
 https://www.youtube.com/watch?v=iNlGgh0s_F8&list=PL62G310vn6nFIsOCC0H-C2infYgwm8SWW&index=98 
-https://www.youtube.com/watch?v=M7CU5TOOmTc&list=PL62G310vn6nFIsOCC0H-C2infYgwm8SWW&index=99 <-- 
+https://www.youtube.com/watch?v=M7CU5TOOmTc&list=PL62G310vn6nFIsOCC0H-C2infYgwm8SWW&index=99 <-- Parei em 07:00
 
 Relembrando POO
 
@@ -94,8 +94,34 @@ public static void createNewFile() {
 }
 
 
----------------------- // 98 - Exceções pt 04 - Lançando exceção unchecked. ()
+---------------------- // 98 - Exceções pt 04 - Lançando exceção unchecked. (ou seja SubClasses de Runtime, NÂO OBRIGATÓRIO o tratamento), se comparado a compilação.
 https://www.youtube.com/watch?v=M7CU5TOOmTc&list=PL62G310vn6nFIsOCC0H-C2infYgwm8SWW&index=99
+
+Reforçando: Sempre lançar Exceptions mais especializadas possível, para melhorar o entendimento e as possíveis tratativas delas.
+
+Exemplo: Division by zero (Clássica):
+
+private static double division(double a, double b){
+
+  if (a == 0) { // se utilizado assim, não sera necessário o bloco try catch abaixo!
+    throw new IllegalArgumentException("Divisão por zero detectada ;-;");
+  } 
+  return a / b;
+
+  /* CODIGO DEMONSTRATIVO COM USO DE TRY CATCH
+  try {
+    return res = a / b; // Obs: Não é obrigatório o lançamento da exception! 
+  
+  } catch (ArithmeticException ex) { // Podemos utilizar a regra de POLIMORFISMO e utilizar a superClasse mais genérica, porém lembrar dos colaterais:
+                                     // Sempre utilizar sobrecarga de catchs começando a tratative pelas subClasses mais especializadas e por ultimos casos
+                                     // utilizar das mais genéricas até chegar nos ultimos ramos Exception e RuntimeException.
+    ...
+    ex.printStackTrace(); 
+  }
+  
+  return 0; 
+  */
+}
 
 
 
