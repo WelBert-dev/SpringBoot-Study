@@ -43,6 +43,7 @@ mesmo deverá tratar CORRETAMENTE.
 ---> Ao Assinar um método com "thows <Exception>" faz com que a responsabilidade do tratamento fique para QUEM ESTA CHAMANDO ELE. assim funciona de
 maneira exponencial, ou seja podemos passar essa responsabilidade para outro método sequencialmente que chamou esse outro método (WorkFlow da stack de
 métodos), e assim passar essa responsabilidade de tratamento PARA outros métodos (Péssima prática, vira uma espécie de "prop drilling").
+---> Exceptions do tipo checked (Ou seja conhecidos pelo Java, filhos diretos de Exception) devemos OBRIGATÓRIAMENTE assinar o método com o throw!
 
 - Exemplo: 
 
