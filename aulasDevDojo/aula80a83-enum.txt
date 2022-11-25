@@ -1,6 +1,7 @@
 -- Data 10/11/2022
 -- link: https://www.youtube.com/watch?v=3xzrprPwS2Q&list=PL62G310vn6nFIsOCC0H-C2infYgwm8SWW&index=81
 
+-- Fonte interessante de como se trabalhar com enums: https://www.wbotelhos.com/controle-de-permissao-com-vraptor-3
 ----------> 80 - Enumerações 
 
 -----> Enumerações também possuem construtores, métodos e atributos.
