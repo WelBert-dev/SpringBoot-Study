@@ -4,7 +4,7 @@
 https://www.youtube.com/watch?v=30D9z8M3eCQ&list=PL62G310vn6nFIsOCC0H-C2infYgwm8SWW&index=96 
 https://www.youtube.com/watch?v=S7gLPZO0Jug&list=PL62G310vn6nFIsOCC0H-C2infYgwm8SWW&index=97
 https://www.youtube.com/watch?v=iNlGgh0s_F8&list=PL62G310vn6nFIsOCC0H-C2infYgwm8SWW&index=98 
-https://www.youtube.com/watch?v=M7CU5TOOmTc&list=PL62G310vn6nFIsOCC0H-C2infYgwm8SWW&index=99 <-- Parei em 07:00
+https://www.youtube.com/watch?v=M7CU5TOOmTc&list=PL62G310vn6nFIsOCC0H-C2infYgwm8SWW&index=99
 
 Relembrando POO
 
@@ -84,6 +84,29 @@ sera muito mais acessado em teoria por outros, então a dica é essa, quanto MAI
 com throw e deixar o bloco de tratamento "Try Catch" para quem esta o chamando.
 
 
+
+---------------------- // Quando uma Exception é lançada e utilizamos multiplos catch's no estilo de sobre carga, o Java faz match não apenas na Exception 
+em particular especializada que indicamos, mas também considera a classe "Pai" dessa Exception em casos de a mesma estar definida nessa sobrecarga!
+
+---> Ou seja o Java considera o POLIMORFISMO aqui também!
+
+---> Ele vai execultar o catch da primeira ocorrência que encontrar, seguindo essa regra do POLIMORFISMO! 
+     Exemplo: Seguindo essa hierarquia básica das Exceptions mais famosas, se utilizarmos uma sobre carga de catchs e lançarmos uma 
+     Exception do tipo 'throw new ArrayIndexOutOfBoundsException();' e na sobre carga o primeiro catch é para um
+     'IndexOutOfBoundsException' então esse bloco quem será executado! pois ele é "Pai" da Exception lançada a cima (POLIMORFISMO).
+     
+                                               <Checked>(NEM compila)           <Unchecked> (Compila)
+                          [Error] -> [Throwable] <- [Exception] <-------------- [RuntimeException]
+                                                        /\                            /\
+                                                         |                             |
+                                                   [IOException]              [NullPointerException]
+                                                   [SQLException]             [NumberFormatException]
+                                                   [MalformadURLexception]    [ClassCastException]
+                                                                              [IndexOutOfBoundsException]
+                                                                              [ArrayIndexOutOfBoundsException]
+      
+
+
 ------------------------------------------- // ANOTAÇÕES DURANTE OS VÍDEOS, COM MAIS DETALHAMENTOS: // --------------------------------------------------
 
 -------> Existem errors e execptions que são possíveis serem tratadas e estão em nosso controle porém existem também exceptions que não estão.
@@ -111,7 +134,11 @@ https://www.youtube.com/watch?v=S7gLPZO0Jug&list=PL62G310vn6nFIsOCC0H-C2infYgwm8
                          [SQLException]             [NumberFormatException]
                          [MalformadURLexception]    [ClassCastException]
                                                     [IndexOutOfBoundsException]
-                                                  
+
+---> Dito isto, então devemos tomar melhor abordagem na qual vamos tratando nessa sobrecarga as possíveis Exceptions mais especificas
+possíveis, na ordem, e por ultimos casos deixar o tratamento para Exceptions mais genéricas (SuperClasses como a "RuntimeException"),
+pois em ultimos casos, quando ja estivermos sem recursos para tratamento, em cenários muitos desconhecidos, ainda sim podemos
+tomar alguma abordagem.
                                                   
 ---------------------- // Exception dos tipos Checked(Obrigatório o tratamento, pois o código nem compila) e Unchecked(Não obrigatório):
 
@@ -261,10 +288,26 @@ public static void createNewFile() { // RESPONSABILIDADE DE TRATAMENTO NO PRÓPR
 ninguem além dele vai poder acessa-lo e realizar esse tratamento, ou seja vai depender do NÍVEL de acessibilidade dessa classe em sí!
 
 
+---------------------------------------------------- // 
+
+---------------------- // Abordagem com blocos Try Catch: Uma certeza de utilização é quando o método em questão é privado, ou seja
+ninguem além dele vai poder acessa-lo e realizar esse tratamento, ou seja vai depender do NÍVEL de acessibilidade dessa classe em sí!
+
+---------------------- // 100 - Exceções pt 06 - Bloco Finally (Ja sabia bastante coisa mas descobri algo interessante):
+- É Possivel utilizar bloco try e finally sem o catch, não é muito comum mas é possível.
+
+https://www.youtube.com/watch?v=QL1Wz5yrlEw&list=PL62G310vn6nFIsOCC0H-C2infYgwm8SWW&index=101
 
 
+----------------------------------------- // 24/11/2022 
+---------------------- // 101 - Exceções pt 07 - Capturando múltiplas exceções (Aqui ele explica sobre a "sobre carga" de catch's) com algumas Obs a 
+mais!!
 
+- Caputurando vários tipos de Exceptions possíveis e tratando elas, no estilo de sobre carga.
 
+https://www.youtube.com/watch?v=QL1Wz5yrlEw&list=PL62G310vn6nFIsOCC0H-C2infYgwm8SWW&index=101
+
+- 
 
 
 
