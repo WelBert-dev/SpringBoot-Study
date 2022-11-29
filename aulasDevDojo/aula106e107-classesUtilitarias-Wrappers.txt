@@ -2,6 +2,7 @@
 -- link: 
 
 https://www.youtube.com/watch?v=F0F0B33Un9M&list=PL62G310vn6nFIsOCC0H-C2infYgwm8SWW&index=107
+https://www.youtube.com/watch?v=cAqsHzWy2qI&list=PL62G310vn6nFIsOCC0H-C2infYgwm8SWW&index=108
 
 Intermediário: Mais especifico no Java
 
@@ -40,14 +41,48 @@ acontece quando se trabalhando com tipos primitivos comuns), ou seja se tentarmo
 
 - A regra de POLIMORFISMO se aplica neles também!
 
-Byte byteW = 1; (Extends Number)
-Short shortW= 1; (Extends Number)
-Integer intW = 1; (Extends Number)
-Long longW = 10L; (Extends Number)
-Float floatW = 10F; (Extends Number)
-Double doubleW = 10D; (Extends Number)
-Character charW = 'W'; 
-Boolean booleanW = false;
+Byte byteW = 1; (Extends Number) // boxing
+Short shortW= 1; (Extends Number) // boxing
+Integer intW = 1; (Extends Number) // boxing
+Long longW = 10L; (Extends Number) // boxing 
+Float floatW = 10F; (Extends Number) // boxing
+Double doubleW = 10D; (Extends Number) // boxing
+Character charW = 'W'; // boxing
+Boolean booleanW = false; // boxing
+
+
+---------------------- // Conceitos Unboxing e AutoBoxing (ou Boxing): Quando o Java faz a conversão automaticamente de tipos primitivos para Wrapper,
+e vici versa.
+
+---> Unboxing: O Ato de desemcapsular um Wrapper ou seja quando estamos retirando um valor primitivo de um Wrapper e o Java faz a conversão.
+Exemplo:
+
+Integer intW = 10; <- AutoBoxing quando o Java faz a conversão.
+
+
+---> Boxing: Ao contrário do anterior, o ato de emcapsular um valor primitivo em um Wrapper aonde o Java faz a conversão:
+Exemplo:
+
+int intP = intW; <- O java esta desencapsulando.
+
+---------------------- // Não muito utilizado, porém os Wrappers também possuem métodos para essas conversões, sendo possivel assim 
+retornar o valor em outros formatos (exemplo em um Wrapper Integer: intP.byteValue(); <- não estático). por de baixo dos panos o java esta fazendo um cast.
+- Também podemos fazer esse parsing apartir de uma string com o metodo Integer.parseInt("10"); <- estático.
+
+
+---------------------- // Métodos interessantes citados no vídeo:
+
+Character.isLetter('L'); <- Booleano se é ou não uma letra;
+Character.isDigit('L'); <- Booleano se é ou não um digito ou seja um number;
+Character.isLetterOrDigit('!'); <- Booleano se é numero ou letra (para detecção de especial caracters);
+
+---> Classicos:
+
+Character.isUpperCase('A');
+Character.isLowerCase('a');
+
+Character.toUpperCase('a'); <- Ambas iram ignorar se passados valores diferentes de letras.
+Character.toLowerCase('A'); <- Ambas iram ignorar se passados valores diferentes de letras.
 
 
 
