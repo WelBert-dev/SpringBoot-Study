@@ -1,0 +1,60 @@
+-- Data 29/11/2022
+-- link: 
+
+https://www.youtube.com/watch?v=vH7izlkNewI&list=PL62G310vn6nFIsOCC0H-C2infYgwm8SWW&index=109
+
+Assuntos interessantes para futuras pesquisas: String constants pool, String interning
+
+Intermediário: Mais especifico no Java
+
+---------------------- // Strings no java são IMUTÁVEIS (CONSTANTES), toda String passada como valor vai parar no "String constants pool" ou seja
+pscina de Strings, e ao atribuir valores iguais (passando valor literal) os mesmos apontaram para o mesmo endereço de memória dessa String, em resumo:
+
+String nome = "Wellison"; <- criou-se a String no pool de strings.
+String nome2 = "Wellison" <- aponta para a mesma referência da variável a cima.
+
+- Obs: O nome dado a essa atribuição de valor é "Valor literal".
+
+- Ou seja se utilizarmos: 
+
+(nome == nome2) o retorno desta expressão será TRUE, pois as duas variavéis apontam para o mesmo endereço em memória.
+
+---> Quando re-atribuimos um valor a uma String sobrescrevendo seu valor anterior, a mesma passa a fazer referência a essa nova String criada
+no pool de Strings, NÂO alterando a String anteior em memória, assim quem aponta para a mesma não sente a diferença.
+
+- Ou seja se utilizarmos:
+
+nome = nome.concat(" da Cruz Bertelli");
+
+(nome == nome2) o retorno agora será FALSE, pois ambas apontam para valores diferentes no pool de Strings.
+
+
+---> Ou seja, o operador de comparação com strings irá comparar o endereço em memória não o valor!
+---> Para fazer a mesma operação porém com o valor utilizamos o método string.equals("blabla");
+
+
+- Quando realizamos a mesma operação anterior, porém sem sobrescrever (nome = nome...) a String será criada no pool, porém como não existe 
+nenhuma variável referênciando ela, a mesma será descartada pelo Garbage Collector.
+
+---------------------- // String interning: Conceito em Ciências da computação a onde armazenamos as strings de uma forma imutável (CONSTANTS), 
+para assim apontarmos para a mesma String quando a mesma pode se repetir, assim economizamos espaço de armazenamento, elas são constantes
+para não quebrarmos as utilizações compartilhaads entre as variaveis que apontam passa essa em memória. (Java utiliza essa abordagem).
+
+
+---------------------- // Para que uma String não seja referênciada/criada nesse pool devemos criar um Objeto String com new, assim o operador irá 
+alocar um espaço em memória e irá copiar essa valor do Pool de strings, então essa String não irá mais estar referênciando o pool.
+
+String nome3 = new String("Wellison"); <-- apenas a nível de demonstração, não é uma boa prática e não é muito utilizado.
+
+(nome2 == nome3) o retorno agora será FALSE, pois uma aponta para o pool de strings e a outra para o objeto alocado em memória.
+
+
+- Obs: Para a comparação anterior funcionar novamente nesse cenário, as strings possuem o método .intern(), e o mesmo irá retornar essa referência
+do pool novamente, 
+
+- Ou seja se utilizarmos:
+
+(nome2 == nome3.inter()) o retorno agora será TRUE, pois ambas apontam para o mesmo valor do pool de strings.
+
+
+
