@@ -104,8 +104,37 @@ em particular especializada que indicamos, mas também considera a classe "Pai" 
                                                    [MalformadURLexception]    [ClassCastException]
                                                                               [IndexOutOfBoundsException]
                                                                               [ArrayIndexOutOfBoundsException]
-      
 
+---------------------- // Try catch with resources: Utilizado quando uma implementação utilizará o método close():
+---> Regras: Para utilizar esse recurso, aonde o Java se encarrega de fazer esse close e evitamos códigos "Sujos" com lançamentos de Exceptions (Para evitar NullPointerException, IOException, e etc) no catch e etc para esse tratamento, 
+podemos utilizar esse recurso porém deve-se atentar em: Para passar essa responsabilidade para o Java
+essa classe deve-se implementar a interface "Closeable" ou "Autocloseable", muito utilizado quando se fecha conexões SQL e etc...
+
+---> Podemos utilizar esse recurso no mesmo parâmetro para instânciar varios Objetos de uma só vez, desde que os mesmos respeitem as regras ditas a cima, 
+utilizando o delimitador ";".
+
+--> Sintaxe: try(Reader r1 = new Reader();
+                 Leitor2 l2 = new Leitor(); <-- Classe criada por nós, porém seguindo a regra dita anteriormente e implementando uma das classes "Clouseble"
+) {
+  ...
+}
+
+---> A Ordem em que o Java irá executar o método .close() será da última instanciação passada no parâmetro até a primeira...
+Ou seja no exemplo dito a cima a ordem seria: l2.close(); r1.close();
+
+------> Obs: Util essa ordem pois geralmente quando se trabalha com banco de dados deve-se ir fechando a stack do ultimo até o primeiro..
+
+
+---------------------- // Regras de sobrescritas de métodos que lançam Exception na assinatura:
+---> O POLIMORFISMO também se enquadra aqui, ou seja ao sobrescrever um método em uma subClasse e os mesmos lançem exeções do tipo Checked (Herdeiros diretos de Exception, ou seja exeções ja conhecidas pelo Java e ele não compila se não resolver) nesse novo método sobrescrito NÂO é obrigatório
+que o mesmo possua na assinatura as Exceptions lançadas pelo "pai", pois o mesmo pode tratar o problema de maneiras diferentes e 
+assim não é necessário esse lançamento, então esta liberado modificar PORÈM segue uma regra importante:
+
+--> Se tentar sobrescrever o método que lança na assinatura essa Exception (Checked) NÂO podemos sobrescrever com Exceptions mais genéricas,
+ou seja se o pai é uma "FileNotFoundException" e no filho tentarmos sobrescrever com "IOException" NÃO vai ser possível! apenas podemos ou
+sobrescrever com a mesma Exception do pai ou um subtipo mais especializado que ela.
+
+---> Outro PORÉM seguindo a mesma linha: não podemos sobrescrever com exeções do tipo Checked se no pai NÃO está sendo lançada (Exceptions que extends Exception diretamente)!
 
 ------------------------------------------- // ANOTAÇÕES DURANTE OS VÍDEOS, COM MAIS DETALHAMENTOS: // --------------------------------------------------
 
