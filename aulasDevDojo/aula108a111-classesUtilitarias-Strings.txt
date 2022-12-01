@@ -84,7 +84,7 @@ private static void concatString(int tamanho) {
   }
 }
 
------------------------------------------------ Classe String comum
+----------------------------------------------- DESEMPENHO Classe String comum
 --> Chamada do método para verificar != time:
 
 ---------// Primeira Interação:
@@ -162,7 +162,7 @@ fim = System.currentTimeMillis()
 - Tempo COM Builder: 4ms (0.4segundo)
 ------------------------------------------------
 
------------------------------------------------// StringBuffer: Mesmos métodos que o Builder, porém visando multiplas Threads acessando o mesmo recurso.
+-----------------------------------------------// DESEMPENHO StringBuffer: Mesmos métodos que o Builder, porém visando multiplas Threads acessando o mesmo recurso.
 - Obs: Ganho de desempenho PORÉm o StringBuilder ainda é superior, e esse demora o dobro do builder, m
 - Ganho de desempenho, quando multiplas Threads acessam o mesmo recurso.
 - Buffer foi feito para contextos de Threads.
@@ -175,7 +175,7 @@ private static void concatStringBuffer(int tamanho) { // Mesmo corpo do Builder 
   }
 }
 
------------------------------------------------ StringBuffer (6ms) VS StringBuilder (3ms) (Obs: Ambos foi feito para contextos diferentes).
+----------------------------------------------- DESEMPENHO StringBuffer (6ms) VS StringBuilder (3ms) (Obs: Ambos foi feito para contextos diferentes).
 
 ---------// Primeira Interação:
 
@@ -199,4 +199,91 @@ fim = System.currentTimeMillis()
 - Quando estamos desenvolvendo um sistema, estamos mapeando as regras de negocio do mudno real em código, e essas regras quem vão ditar qual utilizar.
 - Objetos de dominio que representam as prorpiedades do mundo real sempre teram como atributos Strings comuns.
 - Utilizaremos essas abordagens em contextos aonde queremos otimizar, como algum tipo de processamento em massa e etc..
+
+
+----------------------------------- // Aula 111 - StringBuilder mais a fundo 
+- REFORÇANDO: Ambos possuem as mesmas assinaturas (StringBuilder(3ms) e StringBuffer(6ms)) com a diferença nos contextos.
+  - Ou seja, as mesmas lógicas aqui descritas se aplicam nas duas.
+
+- Não existe o conceito de imutabilidade das Strings, ou seja um objeto deste tipo não vai parar no String constants poo,
+porisso a performance/desempenho aumenta, pois ao concatenar Strings não vai ficar criando duplicatas em memória.
+
+----------------------------------- // Sobrecarga de construtores
+
+- Ao criar um Objeto do tipo StringBuilder ou StringBuffer com o operador new, existem 3 sobrecargas no construtor sendo elas:
+
+  * Sem nada: Default aloca um int com 16 ou seja, um espaço de 16 caracteres em memória.
+    - Caso ultrapassemos esse valor, ele vai dobrando exponencialmente (32, 64, 128...)
+    
+  * Valor int: define o tamanho da String em questão que será alocada.
+  
+  * Alguma coisa:
+  
+  
+----------------------------------- // Concatenando/atribuindo valores a elas:
+  
+  - Para atribuir valores em um objeto destes tipos, ou adicionar mais valores nesse objeto
+    Utilizamos o método .append("blablabla");
+    * Ele é sobrecarregado, podemos passar praticamente todos os tipos primitivos como parâmetro e ele faz o cast,
+      e joga o valor em questão no final da String em memória.
+  
+  
+----------------------------------- // Tipos de retorno do StringBuilder (Obs se atentar a eles)
+- Obs: Ao utilizar métodos desses tipos de Objetos Strings (Builder e Buffer) se atentar sobre o tipo de retorno dele,
+para saber se o método está alterando a String em memória do Objeto em sí, ou se esta apenas aplicando alguma lógica
+e retornando uma String comum. (não alterando assim o valor "real" em memória).
+
+- Para saber isto basta verificar o tipo de retorno deste método em questão, se o retorno for uma String comum, 
+então ele não está aplicando a lógica em cima da String em memória do objeto original (StringBuilder ou Buffer).
+- Agora se ele esta retornando um StringBuilder ou Buffer ele está manipulando a memória em sí, não apenas o retorno.
+
+- Exemplo: 
+objBuilderOrBuffer.reverse(); <- Retorna uma StringBuilder ou seja, altera a String em memória em sí.
+
+- Ou seja o mesmo está mudando o Objeto original em sí na memória..
+
+- Exemplo2 no mesmo contexto:
+objBuilderOrBuffer.delete(inicio, fim -1); <- Retorna uma StringBuilder ou seja, altera a String em memória em sí.
+
+
+- AO CONTRARIO ocorre com o .substring() por exemplo, pois o mesmo retorna uma String comum, logo o objeto real em memória
+permanece intacto, então a logica é aplicada apenas no retorno.
+
+
+----------------------------------- // Porque ganha DESEMPENHO?
+
+
+- Pois como eles manipulam diretamente o espaço único em memória, ao atribuir valores e etc ele faz apenas uma operação,
+diferente quando se trabalha com Strings comuns aonde o mesmo fica re-alocando Strings e duplicando no String constants pool,
+assim não gera essas Strings a +
+
+Exemplo:
+
+String nome = "Wellison";
+nome = nome.concat(" Bertelli");
+
+- Neste exemplo a String "Wellison" vai ser criada no pool de Strings, depois vai ser criado " Bertelli" e depois
+finalmente será criado o "Wellison Bertelli" ou seja 3 operações apenas em 2 linhas, e 3 Strings distintas a + no Strings constants pool.
+
+- O Builder e Buffer não existe isso, ele manipula diretamente a memória alocada inicialmente, então não existe essas duplicatas 
+que acontecem com Strings comuns no pool de Strings.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
