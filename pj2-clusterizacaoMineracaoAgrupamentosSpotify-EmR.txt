@@ -1,0 +1,16 @@
+Data: 30/11/2022 
+Objetivo: Trabalho do curso em linguagem R (Ciência de dados), Resolvi documentar o conhecimento pois encontrei um TCC muito bom.
+Fonte: https://repositorio.ufrn.br/bitstream/123456789/38037/1/UmGuiaParaAgrupamento_Duarte_2021.pdf
+
+
+- Problemática: 
+Elaborar um fluxo de trabalho para realizar a tarefa de mineração de dados clusterização na base IRIS para criar 3 agrupamentos distintos.
+
+- Substituição: Substituido a base IRIS para uma consulta na API do Spotify 
+
+- Motivos: Agrupamentos de acordo com os gostos musicais, e com isto poder pre-dizer e "recomendar" conteúdos.
+
+- Agrupamentos de musicas de uma playlist X e com as flags fazer o match e verificar similaridades entre elas.
+
+
+
